@@ -32,7 +32,7 @@ if(!isset($_SESSION['pseudo'])) //si pas de pseudo en session retour à la case 
                     if($dialogue['civilite'] == 'm') {$color="bleu";}
                     if($dialogue['civilite'] == 'f') {$color="rose";}
                     ?>
-                    <p class="<?=$color?>"><?=$dialogue['datefr']?><strong><?=$dialogue['pseudo']?></strong>
+                    <p class="<?=$color?>"><?=$dialogue['datefr']?> <strong><?=$dialogue['pseudo']?></strong>&#9658
                     <?=$dialogue['message']?></p>
                     <?php
                 }
@@ -56,12 +56,16 @@ if(!isset($_SESSION['pseudo'])) //si pas de pseudo en session retour à la case 
         
         </div>
         <div id="smiley">
-        
+            <img class="smiley" src="smil/smiley1.gif" alt=":)">
+            <img class="smiley" src="smil/smiley2.gif" alt="/{">
+            <img class="smiley" src="smil/smiley3.gif" alt="^^">
+            <img class="smiley" src="smil/smiley4.gif" alt=":(">
         </div>
         <div id="formulaire_tchat">
             <form action="#" method="post">
                 <input type="text" id='message' name="message" maxlength="255" class="textarea">
                 <input type="submit" name="envoi" value="envoi" class="submit">
+                <input type="submit" name="deconnexion" value="deconnexion" id="deconnexion">
             </form>
         </div>
     </div>
@@ -73,7 +77,14 @@ if(!isset($_SESSION['pseudo'])) //si pas de pseudo en session retour à la case 
     src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
-    <script src="inc/ajax.js"></script>   
+    <script src="inc/ajax.js"></script>
+    <script> 
+        <?php
+        $result = $pdo->query("SELECT id_dialogue FROM dialogue ORDER BY id_dialogue DESC LIMIT 0,1");
+        $info = $result->fetch(PDO::FETCH_ASSOC);
+        ?>
+        var lastid = <?=$info['id_dialogue'] ?? 0 ?>
+        </script>
     </body>
 
 </html>
